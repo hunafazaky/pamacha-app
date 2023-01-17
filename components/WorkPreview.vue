@@ -1,18 +1,9 @@
 <template>
-  <v-card class="card mb-4" width="100%" shaped elevation="5">
-    <v-card-header v-if="header === 'true'">
-      <!-- v-if="i < 5"
-      :key="i"
-      :style="`left: ${i * 25}px;`"
-      :to="'/user/' + userByID(reader.user_id).account.username" -->
-      <v-btn class="pa-2 ma-2" nuxt fab small>
-        <v-img
-          class="rounded-circle"
-          cover
-          aspect-ratio="1"
-          src="/icon.png"
-        ></v-img>
-      </v-btn>
+  <v-card rounded="lg" class="card mb-4" width="100%" dark>
+    <v-card-header v-if="miniVariant === false">
+      <v-avatar color="secondary" size="36" class="ma-2">
+        <v-icon dark> mdi-account-circle </v-icon>
+      </v-avatar>
       <span class="font-weight-medium">Hunafa Zaky</span>
     </v-card-header>
     <v-img
@@ -22,7 +13,7 @@
     >
       <v-card-title
         class="text-capitalize"
-        :class="header !== 'true' ? 'caption font-weight-bold' : ''"
+        :class="miniVariant === true ? 'caption font-weight-bold' : ''"
         v-text="
           title.length > wordLimit.title
             ? title.slice(0, wordLimit.title) + '...'
@@ -52,10 +43,15 @@
 <script>
 export default {
   name: 'WorkPreview',
-  props: ['wordLimit', 'header'],
+  props: ['wordLimit', 'miniVariant'],
   data: () => ({
     title: 'Ano hi mita hana no namae wo bokutachi wa mada shiranai',
     text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi laudantium nisi tempora iure rerum, facilis saepe pariatur fugiat quas explicabo autem id eveniet distinctio porro quos eius, natus aspernatur dolore, repellendus laboriosam molestiae ipsum aut accusamus. Pariatur, necessitatibus et. Sequi ullam neque facere maiores? Nemo, corrupti ipsum sapiente ad reprehenderit placeat nobis similique modi, eaque distinctio repudiandae! Dolorem maxime neque vero iste suscipit animi deleniti, deserunt facilis hic, architecto assumenda nulla aut ipsam, qui perferendis ut praesentium amet? Porro, cupiditate voluptate deserunt aut assumenda quo aliquam quasi reprehenderit eius est beatae excepturi eum corporis odio dignissimos modi id vitae veritatis.',
   }),
 }
 </script>
+
+<!-- v-if="i < 5"
+  :key="i"
+  :style="`left: ${i * 25}px;`"
+  :to="'/user/' + userByID(reader.user_id).account.username" -->
