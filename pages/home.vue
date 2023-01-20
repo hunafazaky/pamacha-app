@@ -15,7 +15,7 @@
       />
     </v-col>
     <v-col cols="10" sm="6" md="5">
-      <SideCard />
+      <SideCard :bookmark="true" :recommend="true" />
     </v-col>
   </v-row>
 </template>

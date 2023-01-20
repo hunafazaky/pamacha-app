@@ -1,6 +1,5 @@
 <template>
   <v-slide-group
-    active-class="primary"
     prev-icon="mdi-arrow-left-bold-box"
     next-icon="mdi-arrow-right-bold-box"
     show-arrows
@@ -9,7 +8,8 @@
       <v-btn
         class="mx-1 my-1 rounded-lg"
         :input-value="active"
-        dark
+        :dark="active"
+        outlined
         depressed
         small
         @click="toggle"

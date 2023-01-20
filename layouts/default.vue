@@ -144,8 +144,8 @@ export default {
         },
         {
           icon: 'mdi-account-box-multiple',
-          title: 'Penulis Favorit',
-          to: '/favorite',
+          title: 'Penulis Langganan',
+          to: '/subscribed',
         },
         {
           icon: 'mdi-text-box-plus',
@@ -177,6 +177,15 @@ export default {
   },
 }
 </script>
+
+<style lang="css">
+.absolute {
+  position: absolute;
+}
+.bottom {
+  bottom: 16px;
+}
+</style>
 
 <!-- SAMPAH -->
 

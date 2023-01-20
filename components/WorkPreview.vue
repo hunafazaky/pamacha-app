@@ -1,11 +1,14 @@
 <template>
-  <v-card rounded="lg" class="card mb-4" :width="width" dark>
+  <v-card rounded="lg" class="card mb-4" elevation="2" :width="width" dark>
     <v-img
       cover
       src="/cover.jpg"
       gradient="to top, rgba(12.9, 12.9, 12.9, .25), rgba(12.9, 12.9, 12.9, 1)"
     >
-      <v-card-actions v-if="miniVariant === false" class="mb-2 d-flex align-center">
+      <v-card-actions
+        v-if="miniVariant === false"
+        class="mb-2 d-flex align-center"
+      >
         <v-avatar color="secondary" size="30" class="ma-2">
           <v-icon dark> mdi-account-circle </v-icon>
         </v-avatar>
@@ -22,7 +25,7 @@
             : title
         "
       ></v-card-title>
-      <v-card-text 
+      <v-card-text
         v-if="miniVariant === false"
         class="text-caption"
         v-text="
@@ -32,37 +35,25 @@
         "
       >
       </v-card-text>
-      <v-card-actions >
-        <template v-if="miniVariant === true">
-          <v-btn
-            class="mx-2"
-            dark
-            small
-            color="primary"
-          >
-            <v-icon dark>
-              mdi-minus
-            </v-icon>
+      <v-card-actions>
+        <div class="mx-2 absolute bottom" v-if="miniVariant === true">
+          <v-btn fab small color="primary">
+            <v-icon small> mdi-bookmark-plus </v-icon>
           </v-btn>
-        </template>
-        <template v-else>
-          <v-btn
-            class="mx-2"
-            small
-            color="blue darken-2"
-          >
-            <v-icon left>mdi-bookmark-plus</v-icon>            
+          <v-btn fab small color="success">
+            <v-icon small> mdi-book-open </v-icon>
+          </v-btn>
+        </div>
+        <div class="mx-2 absolute bottom" v-else>
+          <v-btn small color="primary">
+            <v-icon left>mdi-bookmark-plus</v-icon>
             simpan
           </v-btn>
-          <v-btn
-            class="mx-2"
-            small
-            color="red darken-2"
-          >
-            <v-icon left>mdi-book-open</v-icon>            
+          <v-btn small color="success">
+            <v-icon left>mdi-book-open</v-icon>
             lanjut baca
           </v-btn>
-        </template>
+        </div>
       </v-card-actions>
     </v-img>
   </v-card>
@@ -76,8 +67,8 @@ export default {
     miniVariant: Boolean,
     width: {
       type: String,
-      default:'100%'
-    }
+      default: '100%',
+    },
   },
   data: () => ({
     title: 'Ano hi mita hana no namae wo bokutachi wa mada shiranai',
@@ -85,7 +76,6 @@ export default {
   }),
 }
 </script>
-
 <!-- v-if="i < 5"
   :key="i"
   :style="`left: ${i * 25}px;`"
