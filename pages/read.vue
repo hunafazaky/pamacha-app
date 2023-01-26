@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+  <v-row justify="space-between">
     <v-dialog v-model="showZoomContainer" scrollable width="80%">
       <v-sheet
         @click="showZoomContainer = false"
@@ -21,7 +21,15 @@
         ></v-img>
       </v-sheet>
     </v-dialog>
-    <v-col cols="12" md="3">
+    <v-col class="my-4" cols="12" md="7">
+      <h1
+        class="headline font-weight-medium text--secondary"
+        v-text="title"
+      ></h1>
+      <v-divider></v-divider>
+      <p class="subtitle-1 my-4" v-text="text"></p>
+    </v-col>
+    <v-col class="my-4" cols="12" md="3">
       <v-sheet
         @click.stop="showZoomContainer = true"
         outlined
@@ -41,8 +49,18 @@
           :src="file"
         ></v-img>
       </v-sheet>
-      <div class="my-2">
-        <p class="caption font-weight-bold my-0">Type :</p>
+      <div class="my-4">
+        <p class="caption font-weight-bold my-0">Penulis :</p>
+        <v-icon
+          small
+          left
+        >
+          mdi-account-circle
+        </v-icon>
+        <span class="caption text-truncate text-capitalize">Hunafa Zaky</span>
+      </div>
+      <div class="my-4">
+        <p class="caption font-weight-bold my-0">Tipe :</p>
         <v-icon
           :class="type === 'fiksi' ? 'purple--text' : 'error--text'"
           small
@@ -50,20 +68,11 @@
         >
           mdi-pound-box
         </v-icon>
-        <span class="overline text-truncate" v-text="type"></span>
+        <span class="caption text-truncate text-capitalize" v-text="type"></span>
       </div>
-      <div class="my-2">
-        <p class="caption font-weight-bold my-0">Hashtags :</p>
+      <div class="my-4">
+        <p class="caption font-weight-bold my-0">Tagar :</p>
         <v-chip-group column class="mb-4">
-          <!-- <v-chip
-            label
-            small
-            :color="type === 'fiksi' ? 'purple' : 'error'"
-            class="font-weight-bold"
-          >
-            <v-icon small left>mdi-pound</v-icon>
-            <span class="text-capitalize" v-text="type"></span>
-          </v-chip> -->
           <v-chip
             label
             small
@@ -77,15 +86,6 @@
           </v-chip>
         </v-chip-group>
       </div>
-    </v-col>
-    <v-col cols="12" md="7">
-      <h1
-        class="headline font-weight-medium text--secondary"
-        v-text="title"
-      ></h1>
-      <v-divider></v-divider>
-      <p class="caption font-weight-black text-right">By Hunafa Zaky</p>
-      <p class="body-1 my-4" v-text="text"></p>
     </v-col>
   </v-row>
 </template>

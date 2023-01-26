@@ -86,7 +86,16 @@
           </v-row>
           <v-row>
             <v-col cols="12">
-              <v-textarea
+              <!-- <TextBox theme="snow" toolbar="minimal" /> -->
+              <TextBox
+                ref="myQuillEditor"
+                v-model="content"
+                :options="editorOption"
+                @blur="onEditorBlur($event)"
+                @focus="onEditorFocus($event)"
+                @ready="onEditorReady($event)"
+              />
+              <!-- <v-textarea
                 rows="5"
                 row-height="40"
                 auto-grow
@@ -94,7 +103,7 @@
                 name="content"
                 label="Konten"
                 v-model="text"
-              ></v-textarea>
+              ></v-textarea> -->
             </v-col>
           </v-row>
         </v-card-text>
@@ -108,10 +117,20 @@
 
 <script>
 import Dialog from '../components/Dialog.vue'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+import { quillEditor as TextBox } from 'vue-quill-editor'
+
 
 export default {
   layout: 'default',
   data: () => ({
+    content: '<h2>I am Example</h2><br><br>To the best!!!',
+    editorOption: {
+      // Some Quill options...
+    },
     radios: 'non-fiction',
     title: null,
     text: null,
@@ -137,6 +156,9 @@ export default {
     ],
   }),
   computed: {
+    editor() {
+      return this.$refs.myQuillEditor.quill
+    },
     height() {
       switch (this.$vuetify.breakpoint.name) {
         case 'xs':
@@ -153,6 +175,19 @@ export default {
     },
   },
   methods: {
+    onEditorBlur(quill) {
+      console.log('editor blur!', quill)
+    },
+    onEditorFocus(quill) {
+      console.log('editor focus!', quill)
+    },
+    onEditorReady(quill) {
+      console.log('editor ready!', quill)
+    },
+    onEditorChange({ quill, html, text }) {
+      console.log('editor change!', quill, html, text)
+      this.content = html
+    },
     upload() {
       this.$v.$touch()
       // this.$router.push('/home')
@@ -170,6 +205,6 @@ export default {
       }
     },
   },
-  components: { Dialog },
+  components: { Dialog, TextBox },
 }
 </script>
