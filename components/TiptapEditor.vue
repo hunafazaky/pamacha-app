@@ -45,9 +45,7 @@ export default {
   mounted() {
     this.editor = new Editor({
       content: this.value,
-      extensions: [
-        StarterKit,
-      ],
+      extensions: [StarterKit],
       onUpdate: () => {
         // HTML
         this.$emit('input', this.editor.getHTML())
@@ -65,9 +63,9 @@ export default {
 </script>
 
 <style>
-  .ProseMirror {
-    padding: 8px;
-    border-radius: 0.5rem;
-    min-height: 200px;
-  }
+.ProseMirror {
+  padding: 8px;
+  border-radius: 0.5rem;
+  min-height: 200px;
+}
 </style>

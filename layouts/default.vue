@@ -159,6 +159,11 @@ export default {
           title: 'Tulis Sesuatu',
           to: '/write',
         },
+        {
+          icon: 'mdi-pencil',
+          title: 'Todo',
+          to: '/todos',
+        },
       ],
       miniVariant: false,
       right: true,

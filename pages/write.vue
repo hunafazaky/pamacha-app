@@ -87,7 +87,7 @@
           <v-row>
             <v-col cols="12">
               <client-only>
-                <tiptap-editor v-model="content"/>
+                <tiptap-editor v-model="content" />
               </client-only>
               <div class="content">
                 <h3>Content</h3>
@@ -111,7 +111,7 @@
                   </p>
                 </template>
               </div> -->
-              
+
               <!-- <TextBox
                 ref="myQuillEditor"
                 v-model="content"
@@ -138,7 +138,8 @@ import TiptapEditor from '~/components/TiptapEditor.vue'
 export default {
   layout: 'default',
   data: () => ({
-    content: '<p>A Vue.js wrapper component for tiptap to use <code>v-model</code>.</p>',
+    content:
+      '<p>A Vue.js wrapper component for tiptap to use <code>v-model</code>.</p>',
     radios: 'non-fiction',
     title: null,
     text: null,

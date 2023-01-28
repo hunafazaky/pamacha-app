@@ -51,12 +51,7 @@
       </v-sheet>
       <div class="my-4">
         <p class="caption font-weight-bold my-0">Penulis :</p>
-        <v-icon
-          small
-          left
-        >
-          mdi-account-circle
-        </v-icon>
+        <v-icon small left> mdi-account-circle </v-icon>
         <span class="caption text-truncate text-capitalize">Hunafa Zaky</span>
       </div>
       <div class="my-4">
@@ -68,7 +63,10 @@
         >
           mdi-pound-box
         </v-icon>
-        <span class="caption text-truncate text-capitalize" v-text="type"></span>
+        <span
+          class="caption text-truncate text-capitalize"
+          v-text="type"
+        ></span>
       </div>
       <div class="my-4">
         <p class="caption font-weight-bold my-0">Tagar :</p>

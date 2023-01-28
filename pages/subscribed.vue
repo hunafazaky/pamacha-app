@@ -10,9 +10,10 @@
             next-icon="mdi-arrow-right-bold-box"
             show-arrows
           >
-            <v-slide-item v-for="n in 25" :key="n">
-              <WorkPreview
+            <v-slide-item v-for="paper in papers" :key="paper.id">
+              <PaperPreview
                 class="mx-2"
+                :paper="paper"
                 :wordLimit="{ title: 100, text: 0 }"
                 :miniVariant="true"
                 :size="{ numbers: 150, units: 'px' }"
@@ -30,9 +31,10 @@
             next-icon="mdi-arrow-right-bold-box"
             show-arrows
           >
-            <v-slide-item v-for="n in 25" :key="n">
-              <WorkPreview
+            <v-slide-item v-for="paper in papers" :key="paper.id">
+              <PaperPreview
                 class="mx-2"
+                :paper="paper"
                 :wordLimit="{ title: 100, text: 0 }"
                 :miniVariant="true"
                 :size="{ numbers: 150, units: 'px' }"
@@ -49,14 +51,29 @@
 </template>
 
 <script>
-import WorkPreview from '../components/WorkPreview.vue'
+import PaperPreview from '../components/PaperPreview.vue'
 import SideCard from '../components/SideCard.vue'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Favorite',
-  data: () => ({
-    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi laudantium nisi tempora iure rerum, facilis saepe pariatur fugiat quas explicabo autem id eveniet distinctio porro quos eius, natus aspernatur dolore, repellendus laboriosam molestiae ipsum aut accusamus. Pariatur, necessitatibus et. Sequi ullam neque facere maiores? Nemo, corrupti ipsum sapiente ad reprehenderit placeat nobis similique modi, eaque distinctio repudiandae! Dolorem maxime neque vero iste suscipit animi deleniti, deserunt facilis hic, architecto assumenda nulla aut ipsam, qui perferendis ut praesentium amet? Porro, cupiditate voluptate deserunt aut assumenda quo aliquam quasi reprehenderit eius est beatae excepturi eum corporis odio dignissimos modi id vitae veritatis.',
-  }),
-  components: { WorkPreview },
+  data: () => ({}),
+  computed: {
+    papers() {
+      return this.$store.state.papers.data
+    },
+  },
+  methods: {
+    addTodo(e) {
+      console.log(e.target.value)
+      console.log(this.todos)
+      this.$store.commit('todos/add', e.target.value)
+      e.target.value = ''
+    },
+    ...mapMutations({
+      toggle: 'todos/toggle',
+    }),
+  },
+  components: { PaperPreview },
 }
 </script>

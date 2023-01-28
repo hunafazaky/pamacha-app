@@ -3,32 +3,41 @@
     <v-col class="pa-1" cols="12">
       <Hashtags />
     </v-col>
-    <v-col class="px-1 py-0" cols="4" sm="4" md="3" xl="2">
-      <WorkPreview :wordLimit="{ title: 100, text: 0 }" :miniVariant="true" />
-    </v-col>
-    <v-col class="px-1 py-0" cols="4" sm="4" md="3" xl="2">
-      <WorkPreview :wordLimit="{ title: 100, text: 0 }" :miniVariant="true" />
-    </v-col>
-    <v-col class="px-1 py-0" cols="4" sm="4" md="3" xl="2">
-      <WorkPreview :wordLimit="{ title: 100, text: 0 }" :miniVariant="true" />
-    </v-col>
-    <v-col class="px-1 py-0" cols="4" sm="4" md="3" xl="2">
-      <WorkPreview :wordLimit="{ title: 100, text: 0 }" :miniVariant="true" />
-    </v-col>
-    <v-col class="px-1 py-0" cols="4" sm="4" md="3" xl="2">
-      <WorkPreview :wordLimit="{ title: 100, text: 0 }" :miniVariant="true" />
-    </v-col>
+    <template v-for="paper in papers">
+      <v-col :key="paper.id" class="px-1 py-0" cols="4" sm="4" md="3" xl="2">
+        <PaperPreview
+          :paper="paper"
+          :wordLimit="{ title: 100, text: 0 }"
+          :miniVariant="true"
+        />
+      </v-col>
+    </template>
   </v-row>
 </template>
 
 <script>
-import WorkPreview from '../components/WorkPreview.vue'
+import PaperPreview from '../components/PaperPreview.vue'
 import Hashtags from '../components/Hashtags.vue'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Explore',
-  data: () => ({
-    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi laudantium nisi tempora iure rerum, facilis saepe pariatur fugiat quas explicabo autem id eveniet distinctio porro quos eius, natus aspernatur dolore, repellendus laboriosam molestiae ipsum aut accusamus. Pariatur, necessitatibus et. Sequi ullam neque facere maiores? Nemo, corrupti ipsum sapiente ad reprehenderit placeat nobis similique modi, eaque distinctio repudiandae! Dolorem maxime neque vero iste suscipit animi deleniti, deserunt facilis hic, architecto assumenda nulla aut ipsam, qui perferendis ut praesentium amet? Porro, cupiditate voluptate deserunt aut assumenda quo aliquam quasi reprehenderit eius est beatae excepturi eum corporis odio dignissimos modi id vitae veritatis.',
-  }),
+  data: () => ({}),
+  computed: {
+    papers() {
+      return this.$store.state.papers.data
+    },
+  },
+  methods: {
+    addTodo(e) {
+      console.log(e.target.value)
+      console.log(this.todos)
+      this.$store.commit('todos/add', e.target.value)
+      e.target.value = ''
+    },
+    ...mapMutations({
+      toggle: 'todos/toggle',
+    }),
+  },
 }
 </script>
