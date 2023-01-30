@@ -99,7 +99,7 @@
       </v-menu>
     </v-app-bar>
 
-    <v-main class="mb-10">
+    <v-main class="mb-12">
       <v-container>
         <Nuxt />
       </v-container>

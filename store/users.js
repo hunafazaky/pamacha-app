@@ -7,7 +7,7 @@ export const state = () => ({
         password: '12345678',
       },
       profile: {
-        image_profile: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        image_profile: '/temp-profile.webp',
         name: "Zaky Syi'ar Hunafa Nugroho",
         birthdate: '13 September 2000',
         place: 'Bandung',

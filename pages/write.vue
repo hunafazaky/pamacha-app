@@ -29,31 +29,41 @@
               <p class="caption text--secondary text-center">Preview</p>
             </v-col>
             <v-col cols="8" md="9">
-              <v-text-field
-                outlined
-                dense
-                v-model="paper.title"
-                label="Judul"
-                hint="Pilih judul yang sesuai dan menarik pembaca"
-                persistent-hint
-                required
-              ></v-text-field>
-              <v-radio-group class="my-0" v-model="paper.type" row mandatory>
+              <v-radio-group class="my-0" v-model="paper.type" mandatory>
+                <template v-slot:label>
+                  <div>Pilih jenis Karya Tulis</div>
+                </template>
                 <v-radio
-                  label="Non-Fiksi"
-                  value="Non-Fiksi"
-                  off-icon="mdi-pound-box"
-                  on-icon="mdi-pound-box"
-                  color="error"
-                ></v-radio>
-                <v-radio
-                  label="Fiksi"
                   value="Fiksi"
                   off-icon="mdi-pound-box"
                   on-icon="mdi-pound-box"
                   color="purple"
-                ></v-radio>
+                >
+                  <template v-slot:label>
+                    <div>Fiksi</div>
+                  </template>
+                </v-radio>
+                <v-radio
+                  value="Non-Fiksi"
+                  off-icon="mdi-pound-box"
+                  on-icon="mdi-pound-box"
+                  color="error"
+                >
+                  <template v-slot:label>
+                    <div>Non-Fiksi</div>
+                  </template>
+                </v-radio>
               </v-radio-group>
+              <v-divider></v-divider>
+              <v-text-field
+                outlined
+                dense
+                label="Judul"
+                hint="Pilih judul yang sesuai dan menarik pembaca"
+                persistent-hint
+                required
+                v-model="paper.title"
+              ></v-text-field>
               <v-autocomplete
                 outlined
                 dense
@@ -62,19 +72,19 @@
                 small-chips
                 deletable-chips
                 clearable
-                hint="Pilih (max. 5) kategori yang paling sesuai"
-                :counter="5"
+                label="Tagar"
+                hint="Pilih (max. 5) tagar yang paling sesuai"
                 persistent-hint
-                v-model="paper.hashtag_list"
-                :items="items"
-                label="Kategori"
+                :counter="5"
+                :items="hashtags"
+                v-model="paper.hashtags"
               ></v-autocomplete>
               <v-file-input
-                prepend-icon=""
-                append-outer-icon="mdi-image-plus"
                 outlined
                 dense
                 clearable
+                prepend-icon=""
+                append-outer-icon="mdi-image-plus"
                 show-size
                 truncate-length="25"
                 label="Cover"
@@ -87,17 +97,10 @@
           </v-row>
           <v-row>
             <v-col cols="12">
+              <div>Tulis karyamu di kotak ini</div>
               <client-only>
                 <tiptap-editor v-model="paper.text" />
               </client-only>
-              <div class="content">
-                <h3>Content</h3>
-                <pre><code>{{ paper.text }}</code></pre>
-              </div>
-              <div class="content">
-                <h3>Content</h3>
-                <p v-html="paper.text"></p>
-              </div>
               <!-- <v-sheet outlined class="py-4" rounded="lg">
                 <div id="codex-editor"/>
               </v-sheet>
@@ -125,11 +128,25 @@
           </v-row>
         </v-card-text>
         <v-card-actions>
-          <v-btn :disabled="!paper.title || !paper.text" @click="addPaper">
-            Kirim
+          <v-btn 
+            class="ma-2 px-4" 
+            color="success" 
+            :disabled="!paper.title || !paper.text" 
+            @click="addPaper"
+          >
+            Unggah
           </v-btn>
         </v-card-actions>
       </v-card>
+      <v-alert
+        class="mb-0"
+        type="success"
+        transition="slide-y-transition"
+        dismissible
+        :value="success"
+      >
+        Data Berhasil Dikirim
+      </v-alert>
     </v-col>
   </v-row>
 </template>
@@ -143,11 +160,12 @@ export default {
   layout: 'default',
   data: () => ({
     file: null,
+    success: false,
     paper: {
       image_cover: null,
       title: null,
       text: null,
-      type: null,
+      type: "Fiksi",
       hashtags: [],
       writer_id: 1,
       reader_id: [],
@@ -156,23 +174,6 @@ export default {
       created_at: '21 Desember 2012',
       updated_at: '21 Desember 2012',
     },
-    items: [
-      'Teknologi',
-      'Sains',
-      'Sejarah',
-      'Ekonomi',
-      'Sosial',
-      'Budaya',
-      'Agama',
-      'Politik',
-      'Olahraga',
-      'Aksi',
-      'Romansa',
-      'Fiksi Ilmiah',
-      'Fantasi',
-      'Horor',
-      'Drama',
-    ],
   }),
   computed: {
     height() {
@@ -189,12 +190,20 @@ export default {
           return 800
       }
     },
+    hashtags() {
+      const hashtag = [];
+      this.$store.state.hashtags.data.forEach(element => {
+        hashtag.push(element.name);
+      });
+      return hashtag;
+    },
   },
   methods: {
     addPaper() {
+      this.success = false;
       this.paper.id = Math.random()
       if (this.paper.image_cover === null)
-        this.paper.image_cover = 'https://picsum.photos/400/640?random'
+        this.paper.image_cover = '/temp-profile.webp'
       console.log(this.paper)
       this.$store.commit('papers/add', this.paper)
       this.file = null
@@ -203,7 +212,7 @@ export default {
         title: null,
         text: null,
         type: null,
-        hashtag_list: null,
+        hashtags: null,
         writer_id: 1,
         reader_list: [1, 2, 3, 4, 5],
         favorite: 20,
@@ -211,17 +220,7 @@ export default {
         created_at: '21 Desember 2012',
         updated_at: '21 Desember 2012',
       }
-    },
-    upload() {
-      this.$v.$touch()
-      // this.$router.push('/home')
-    },
-    clear() {
-      this.$v.$reset()
-      this.username = ''
-      this.title = ''
-      this.select = null
-      this.checkbox = false
+      this.success = true
     },
     fileToImage() {
       if (this.file) {

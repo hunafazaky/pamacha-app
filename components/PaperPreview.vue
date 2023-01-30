@@ -24,6 +24,7 @@
       >
         <v-card-actions v-if="miniVariant === true" class="ma-0 pa-0 mx-4 mt-2">
           <v-icon
+            class="mx-1"
             :class="paper.type === 'Fiksi' ? 'purple--text' : 'error--text'"
             small
             left
@@ -72,7 +73,7 @@
             <v-btn fab small color="primary">
               <v-icon small> mdi-bookmark-plus </v-icon>
             </v-btn>
-            <v-btn fab small color="success" nuxt to="/read">
+            <v-btn fab small color="success" nuxt :to="`/${paper.id}/read`">
               <v-icon small> mdi-book-open </v-icon>
             </v-btn>
           </div>
@@ -81,7 +82,7 @@
               <v-icon left>mdi-bookmark-plus</v-icon>
               simpan
             </v-btn>
-            <v-btn small color="success" nuxt to="/read">
+            <v-btn small color="success" nuxt :to="`/${paper.id}/read`">
               <v-icon left>mdi-book-open</v-icon>
               lanjut baca
             </v-btn>
