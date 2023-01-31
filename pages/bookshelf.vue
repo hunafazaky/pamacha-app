@@ -1,7 +1,15 @@
 <template>
-  <v-row justify="start" class="px-4 py-1">
-    <template v-for="post in posts">
-      <v-col :key="post.id" class="px-1 py-0" cols="4" sm="4" md="3" xl="2">
+  <v-row :justify="posts.length > 0 ? 'start' : 'center'" class="px-4 py-1">
+    <template v-if="posts.length > 0">
+      <v-col
+        v-for="post in posts"
+        :key="post.id"
+        class="px-1 py-0"
+        cols="4"
+        sm="4"
+        md="3"
+        xl="2"
+      >
         <PostCard
           :post="post"
           :wordLimit="{ title: 100, text: 0 }"
@@ -9,16 +17,18 @@
         />
       </v-col>
     </template>
+    <template v-else>
+      <p class="overline text-center text-secondary ma-4">Kosong</p>
+    </template>
   </v-row>
 </template>
 
 <script>
 import PostCard from '../components/PostCard.vue'
-import Hashtags from '../components/Hashtags.vue'
 import { mapMutations } from 'vuex'
 
 export default {
-  name: 'Explore',
+  name: 'Bookshelf',
   data: () => ({}),
   computed: {
     posts() {
@@ -38,7 +48,6 @@ export default {
   },
   components: {
     PostCard,
-    Hashtags,
   },
 }
 </script>

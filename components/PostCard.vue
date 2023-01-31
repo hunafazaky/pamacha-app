@@ -22,7 +22,7 @@
         :src="post.image_cover"
         gradient="to top, rgba(12.9, 12.9, 12.9, .25), rgba(12.9, 12.9, 12.9, 1)"
       >
-        <v-card-actions v-if="miniVariant === true" class="ma-0 pa-0 mx-4 mt-2">
+        <!-- <v-card-actions v-if="miniVariant === true" class="ma-0 pa-0 mx-4 mt-2">
           <v-icon
             :class="post.type === 'Fiksi' ? 'purple--text' : 'error--text'"
             small
@@ -31,8 +31,11 @@
             mdi-pound-box
           </v-icon>
           <span class="overline text-truncate" v-text="post.type"></span>
-        </v-card-actions>
-        <v-card-actions v-else class="d-flex align-center pa-4">
+        </v-card-actions> -->
+        <v-card-actions
+          v-if="miniVariant === false"
+          class="d-flex align-center pa-4"
+        >
           <nuxt-link
             :to="`/user/${writer.account.username}`"
             class="text-decoration-none white--text text-truncate"
@@ -54,8 +57,8 @@
         </v-card-actions>
         <v-card-text
           class="title text-capitalize"
-          :class="miniVariant === true ? 'caption font-weight-bold' : ''"
-          v-html="
+          :class="miniVariant === true ? 'caption' : ''"
+          v-text="
             post.title.length > wordLimit.title
               ? post.title.slice(0, wordLimit.title) + '...'
               : post.title
@@ -72,21 +75,39 @@
         >
         </v-card-text>
         <v-card-actions>
-          <div class="mx-2 absolute bottom" v-if="miniVariant === true">
-            <v-btn fab small color="primary">
-              <v-icon small> mdi-bookmark-plus </v-icon>
+          <div class="absolute bottom" v-if="miniVariant === true">
+            <v-btn icon class="mb-1" color="primary">
+              <v-icon> mdi-text-box-check </v-icon>
             </v-btn>
-            <v-btn fab small color="success" nuxt :to="`/post/${post.id}/read`">
-              <v-icon small> mdi-book-open </v-icon>
+            <v-btn
+              icon
+              class="mb-1"
+              color="success"
+              nuxt
+              :to="`/post/${post.id}/read`"
+            >
+              <v-icon> mdi-text-box-search </v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              class="mb-1"
+              color="warning"
+              nuxt
+              :to="`/post/${post.id}/edit`"
+            >
+              <v-icon> mdi-text-box-edit </v-icon>
+            </v-btn>
+            <v-btn icon class="mb-1" color="error" @click="removePost(post)">
+              <v-icon> mdi-text-box-remove </v-icon>
             </v-btn>
           </div>
           <div class="mx-2 absolute bottom" v-else>
             <v-btn small color="primary">
-              <v-icon left>mdi-bookmark-plus</v-icon>
+              <v-icon left> mdi-text-box-check </v-icon>
               simpan
             </v-btn>
             <v-btn small color="success" nuxt :to="`/post/${post.id}/read`">
-              <v-icon left>mdi-book-open</v-icon>
+              <v-icon left> mdi-text-box-search </v-icon>
               lanjut baca
             </v-btn>
           </div>
@@ -121,9 +142,10 @@ export default {
       )
     },
   },
+  methods: {
+    removePost(post) {
+      this.$store.commit('posts/remove', post)
+    },
+  },
 }
 </script>
-<!-- v-if="i < 5"
-  :key="i"
-  :style="`left: ${i * 25}px;`"
-  :to="'/user/' + userByID(reader.user_id).account.username" -->

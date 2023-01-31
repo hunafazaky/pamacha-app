@@ -43,7 +43,13 @@
         </v-tooltip>
         <v-divider />
         <template v-if="height > 500">
-          <v-list-item v-bind="attrs" v-on="on" to="/profile" router exact>
+          <v-list-item
+            v-bind="attrs"
+            v-on="on"
+            to="/user/hunafazaky"
+            router
+            exact
+          >
             <v-list-item-action>
               <v-icon>mdi-account-circle</v-icon>
             </v-list-item-action>
@@ -82,7 +88,7 @@
           </v-btn>
         </template>
         <v-list dark>
-          <v-list-item to="/profile" router exact>
+          <v-list-item to="/user/hunafazaky" router exact>
             <v-list-item-title>
               <v-icon small left>mdi-account-circle</v-icon>
               Profile</v-list-item-title

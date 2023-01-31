@@ -24,7 +24,7 @@
       </v-sheet>
     </v-col>
     <v-col cols="8">
-      <v-card rounded="lg">
+      <v-card rounded="lg" outlined>
         <v-card-title>
           <p class="my-1 text-capitalize" v-text="user.profile.name"></p>
         </v-card-title>
@@ -67,10 +67,10 @@
       </v-card>
     </v-col>
     <v-col cols="12">
-      <v-card rounded="lg" width="100%">
+      <v-card rounded="lg" outlined width="100%">
         <v-card-title class="ma-2">Karya Tulis Saya</v-card-title>
         <v-card-text>
-          <v-row justify="start" class="px-4 py-1">
+          <v-row justify="start" class="px-4 py-1" v-if="posts.length > 0">
             <v-col
               v-for="post in posts"
               :key="post.id"
@@ -87,6 +87,9 @@
               />
             </v-col>
           </v-row>
+          <template v-else>
+            <p class="overline text-center text-secondary ma-4">Kosong</p>
+          </template>
         </v-card-text>
       </v-card>
     </v-col>
@@ -99,7 +102,7 @@ import PopZoom from '../../../components/PopZoom.vue'
 import { mapMutations } from 'vuex'
 
 export default {
-  name: 'Explore',
+  name: 'User',
   data: () => ({
     showPopZoom: false,
   }),

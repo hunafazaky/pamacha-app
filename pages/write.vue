@@ -132,7 +132,7 @@
             class="ma-2 px-4"
             color="success"
             :disabled="!post.title || !post.text"
-            @click="addPaper"
+            @click="addPost"
           >
             Unggah
           </v-btn>
@@ -142,7 +142,6 @@
         class="mb-0"
         type="success"
         transition="slide-y-transition"
-        dismissible
         :value="success"
       >
         Data Berhasil Dikirim
@@ -153,11 +152,9 @@
 
 <script>
 import TiptapEditor from '~/components/TiptapEditor.vue'
-// import Dialog from '../components/Dialog.vue'
-// import { mapMutations } from 'vuex'
 
 export default {
-  layout: 'default',
+  name: 'Write',
   data: () => ({
     file: null,
     success: false,
@@ -199,12 +196,11 @@ export default {
     },
   },
   methods: {
-    addPaper() {
-      this.success = false
+    addPost() {
+      // this.success = false;
       this.post.id = Math.random()
       if (this.post.image_cover === null)
         this.post.image_cover = '/temp-profile.webp'
-      console.log(this.post)
       this.$store.commit('posts/add', this.post)
       this.file = null
       this.post = {
@@ -221,6 +217,9 @@ export default {
         updated_at: '21 Desember 2012',
       }
       this.success = true
+      setTimeout(() => {
+        this.success = false
+      }, 2000)
     },
     fileToImage() {
       if (this.file) {

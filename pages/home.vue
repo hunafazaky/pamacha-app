@@ -12,7 +12,7 @@
         />
       </template>
       <template v-else>
-        <p class="overline text-center text-secondary ma-4">No Data</p>
+        <p class="overline text-center text-secondary ma-4">Kosong</p>
       </template>
     </v-col>
     <v-col cols="10" sm="6" md="5">
