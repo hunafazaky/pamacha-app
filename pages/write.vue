@@ -139,15 +139,15 @@ export default {
     success: false,
     work: {
       content: {
-        img_cover: null,
-        title: null,
-        text: null,
+        img_cover: '',
+        title: '',
+        text: '',
       },
       keyword: {
         type: 'Fiksi',
         hashtags: [],
       },
-      activity: { written_by: null },
+      activity: { written_by: {} },
     },
   }),
   computed: {
@@ -194,25 +194,22 @@ export default {
     postNewWork() {
       if (this.work.content.img_cover === null)
         this.work.content.img_cover = '/temp-profile.webp'
-      this.$axios.post(`/works`, this.work).then(() => {
-        this.file = null
-        ;(this.work = {
-          content: {
-            img_cover: null,
-            title: null,
-            text: null,
-          },
-          keyword: {
-            type: 'Fiksi',
-            hashtags: [],
-          },
-          activity: { written_by: null },
-        }),
-          (this.success = true)
-        setTimeout(() => {
-          this.$router.push('/home')
-        }, 2000)
-      })
+      this.$axios
+        .post(`/works`, this.work)
+        // .then((data) => {
+        //   this.me.activity.writings.push({
+        //     id: data.id,
+        //     createdAt: data.createdAt,
+        //     updatedAt: data.updatedAt
+        //   })
+        //   this.$axios.put(`/users/${this.me.id}`, this.me);
+        // })
+        .then(() => {
+          this.success = true
+          setTimeout(() => {
+            this.$router.push('/home')
+          }, 2000)
+        })
     },
     fileToImage() {
       if (this.file) {
