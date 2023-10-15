@@ -147,7 +147,7 @@ export default {
   }),
   computed: {
     me() {
-      return this.$store.getters['me'][0];
+      return this.$store.getters['me'];
     }
   },
   methods: {

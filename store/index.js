@@ -90,6 +90,33 @@ export const actions = {
         console.error('Error fetching data from API:', error)
       })
   },
+  regis({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      this.$axios.post('/users', {username:data.username, pen_name:data.username, password:data.password} )
+        .then(response => {
+          console.log('Response: ', response.data)
+          resolve(response.data)
+        })
+        .catch(error => {
+          console.error('Error: ', error)
+          reject(error)
+        })
+    })
+  },
+  login({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      this.$axios.post('/users/login', {username:data.username, password:data.password} )
+        .then(response => {
+          // Lakukan sesuatu jika POST berhasil, jika diperlukan
+          commit('setMe', response.data)
+          resolve(response.data)
+        })
+        .catch(error => {
+          console.error('Error: ', error)
+          reject(error)
+        })
+    })
+  },
 }
 
 export const getters = {

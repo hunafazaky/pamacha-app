@@ -20,7 +20,7 @@
             </v-col>
           </template>
           <template v-else>
-            <p class="overline text-center text-secondary ma-4">Kosong</p>
+            <p class="overline text-center text-secondary ma-4">Memuat...</p>
           </template>
         </template>
       </v-row>
@@ -97,7 +97,7 @@ export default {
     },
     me() {
       if (this.$store.getters['me']) {
-        return this.$store.getters['me'][0];
+        return this.$store.getters['me'];
       } else {
         this.$router.push('/');
         return []; 

@@ -31,7 +31,12 @@
               color="success"
               @click="regis"
             >
-              registrasi
+            <span v-if="loading" :loading="loading">
+                ...
+              </span>
+              <span v-else>
+                registrasi
+              </span>
             </v-btn>
             <v-btn
               v-if="form_title == 'Login'"
@@ -50,9 +55,9 @@
         </v-card>
         <v-alert
           class="mb-0"
-          type="error"
+          type="info"
           transition="slide-y-transition"
-          :value="errorMessage"
+          :value="regisAttempt || loginAttempt"
         >
           {{ message }}
         </v-alert>
@@ -91,7 +96,8 @@ export default {
         username: null,
         password: null,
     },
-    // loginin: null,
+    loginAttempt: false,
+    regisAttempt: false,
     form_title: 'Registrasi',
     message: '',
     loading: false,
@@ -100,19 +106,19 @@ export default {
     LoadingComponent,
   },
   computed: {
-    errorMessage() {
-      if (this.$store.getters['me']) {
-        if(this.$store.getters['me']?.length > 0) {
-          this.loading = false;
-          this.$router.push('/home');
-          return false
-        } else {
-          this.loading = false;
-          this.message = 'Username atau Password salah';
-          return true
-        }
-      } else return false
-    },
+    // errorMessage() {
+    //   if (this.loginAttempt) {
+    //     if(this.$store.getters['me']) {
+    //       this.loading = false;
+    //       this.$router.push('/home');
+    //       return false
+    //     } else {
+    //       this.loading = false;
+    //       this.message = 'Login Gagal! Pastikan username dan password benar!!';
+    //       return true
+    //     }
+    //   } else return false
+    // },
     height() {
       switch (this.$vuetify.breakpoint.name) {
         case 'xs':
@@ -137,24 +143,32 @@ export default {
       this.form_title = 'Registrasi'
     },
     login() {
+      this.loginAttempt = true;
       this.loading = true;
-      this.$store.dispatch('auth', this.user);
+      this.$store
+      .dispatch('login', this.user)
+      .then((data) => {
+        this.loading = false;
+        if (data.id) {
+          this.message = 'Login Berhasil!!';
+          this.$router.push('/home');
+        } else this.message = 'Error: ' + data.message;
+      })
+      .catch((err) => alert(err));
     },
     regis() {
-      // this.$axios
-      //   .post(`/users`, this.user)
-      //   .then((user) => {
-      //     if (user.data.message) {
-      //       this.errorMessage = true
-      //       this.message = user.data.message
-      //     } else {
-      //       this.$store.commit('users/login', user.data[0])
-      //       this.$router.push('/home')
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     console.log(err)
-      //   })
+      this.regisAttempt = true;
+      this.loading = true;
+      this.$store
+      .dispatch('regis', this.user)
+      .then((data) => {
+        this.loading = false;
+        if (data.id) {
+          this.message = 'Registrasi Berhasil!!';
+          this.login();
+        } else this.message = 'Error: ' + data.message;
+      })
+      .catch((err) => alert(err));
     },
   },
 }
