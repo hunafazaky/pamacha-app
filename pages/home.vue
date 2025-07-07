@@ -39,12 +39,23 @@
                 cols="4"
               >
                 <WorkCard
-                  :work="work"
+                  :work="{ ...work, id: work._id }"
                   :wordLimit="{ title: 100, text: 0 }"
                   :miniVariant="false"
                   :mutation="false"
                   @remove-work="deleteWork"
                 />
+              </v-col>
+              <v-col
+                class="px-1 py-0"
+                cols="4"
+              >
+                <!-- <button @click="loadMore" :disabled="loading.work || works.length >= total">
+                  {{ loading.work ? 'Loading...' : (works.length >= total ? 'No more works' : 'Load More') }}
+                </button> -->
+                <div v-if="loading.work" class="loading-indicator">
+                  Loading more works...
+                </div>
               </v-col>
             </template>
             <template v-else>
@@ -134,6 +145,10 @@ export default {
       user: true,
       page: false
     },
+    works: [],         // Simpan semua artikel gabungan di sini
+    page: 1,
+    limit: 12,
+    total: 0,
   }),
   computed: {
     // counter() {
@@ -148,12 +163,12 @@ export default {
         return []; 
       }
     },
-    works() {
-      if (this.$store.getters['works']) {
-        this.loading.work = false
-        return this.$store.getters['works']
-      }
-    },
+    // works() {
+    //   if (this.$store.getters['works']) {
+    //     this.loading.work = false
+    //     return this.$store.getters['works']
+    //   }
+    // },
     foryou() {
       if (this.$store.getters['foryou']) {
         this.loading.work = false
@@ -162,6 +177,29 @@ export default {
     }
   },
   methods: {
+    // async fetchWorks() {
+    //   this.loading.work = true
+    //   try {
+    //     const res = await this.$store.dispatch('getWorks', {
+    //       page: this.page,
+    //       limit: this.limit
+    //     })
+
+    //     this.works.push(...res.works) // Gabungkan data lama + baru
+    //     this.total = res.total
+
+    //   } catch (error) {
+    //     console.error('Gagal memuat works:', error)
+    //   }
+
+    //   this.loading.work = false
+    // },
+
+    // async loadMore() {
+    //   if (this.works.length >= this.total) return // Sudah semua
+    //   this.page += 1
+    //   await this.fetchWorks()
+    // },
     // incrementCounter() {
     //   this.$store.dispatch('increment')
     // },
@@ -201,6 +239,40 @@ export default {
     // ...mapMutations({
     //   toggle: 'todos/toggle',
     // }),
+    handleScroll() {
+      const scrollBottom = window.innerHeight + window.scrollY
+      const fullHeight = document.documentElement.offsetHeight
+
+      if (scrollBottom >= fullHeight - 100 && !this.loading.work && this.works.length < this.total) {
+        this.loadMore()
+      }
+    },
+
+    async loadMore() {
+      this.page += 1
+      await this.fetchWorks()
+    },
+
+    async fetchWorks() {
+      this.loading.work = true
+
+      try {
+        const res = await this.$store.dispatch('getWorks', {
+          page: this.page,
+          limit: this.limit
+        })
+
+        if (res && Array.isArray(res.works)) {
+          this.works.push(...res.works)
+          this.total = res.total || 0
+        }
+
+      } catch (error) {
+        console.error('Gagal memuat works:', error)
+      }
+
+      this.loading.work = false
+    }
   },
   components: {
     WorkCard,
@@ -212,6 +284,12 @@ export default {
     this.getWorks()
     this.getForYou()
     this.getUserById()
+    this.fetchWorks()
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  beforeUnmount() {
+    // agar tidak memory leak
+    window.removeEventListener('scroll', this.handleScroll)
   },
 }
 </script>

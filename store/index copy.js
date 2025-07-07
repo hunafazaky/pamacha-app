@@ -107,38 +107,11 @@ export const actions = {
   },
 
   // action for works
-  // getWorks ({ commit }, { page = 1, limit = 12 } = {}) {
-  //   return new Promise((resolve, reject) => {
-  //     this.$axios.get('/works', {
-  //       params: {
-  //         sortBy: 'newest',
-  //         page,
-  //         limit
-  //       }
-  //     })
-  //     .then(response => {
-  //       commit('setWorks', response.data.works) // sesuaikan sesuai respons dari backend
-  //       resolve(response.data)
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching data from API:', error)
-  //       reject(error)
-  //     })
-  //   })
-  // },
-
-  getWorks ({ commit }, { page = 1, limit = 12, category = '' } = {}) {
+  getWorks ({ commit }) {
     return new Promise((resolve, reject) => {
-      this.$axios.get('/works', {
-        params: {
-          sortBy: 'newest',
-          page,
-          limit,
-          category // tambahkan ini
-        }
-      })
+      this.$axios.get('/works?sortBy=newest')
       .then(response => {
-        commit('setWorks', response.data.works) // opsional
+        commit('setWorks', response.data)
         resolve(response.data)
       })
       .catch(error => {
@@ -147,8 +120,6 @@ export const actions = {
       })
     })
   },
-  // 
-  // // //
   getWorkById ({ commit }, id) {
     return new Promise((resolve, reject) => {
       this.$axios.get('/works/' + id)

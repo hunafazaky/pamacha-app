@@ -11,7 +11,7 @@
         Reading App
       </h1>
       <h1 v-else class="text-center ma-5 white--text">R</h1>
-      <v-text-field
+      <!-- <v-text-field
         v-if="height > 500"
         class="ma-2"
         solo
@@ -21,7 +21,7 @@
         label="Cari Sesuatu..."
         single-line
         hide-details
-      ></v-text-field>
+      ></v-text-field> -->
       <v-list>
         <v-tooltip
           :disabled="height > 500"
@@ -42,7 +42,7 @@
           <span>{{ item.title }}</span>
         </v-tooltip>
         <v-divider />
-        <template v-if="height > 500">
+        <!-- <template v-if="height > 500">
           <v-list-item
             v-bind="attrs"
             v-on="on"
@@ -69,7 +69,7 @@
               <v-list-item-title>Pengaturan</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-        </template>
+        </template> -->
       </v-list>
     </v-navigation-drawer>
     <v-main class="mb-12">
