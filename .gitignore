@@ -1,37 +1,27 @@
-# pnpm specific
-node_modules/
-.pnpm-debug.log*
-.old
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
 
-# Build outputs (Vue/Vuetify)
-dist/
-dist-ssr/
-*.local
-
-# Environment files
-.env
-.env.*.local
+# Node dependencies
+node_modules
 
 # Logs
 logs
 *.log
-npm-debug.log*
 
-# Editor & OS
-.idea/
+# Misc
 .DS_Store
+.fleet
+.idea
 
-# Testing
-/cypress/videos/
-/cypress/screenshots/
-coverage/
+# Local env files
+.env
+.env.*
+!.env.example
 
-# VS Code
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json
-!.vscode/launch.json
-
-# Ruler / Formatting
-.ruler
-.editorconfig
+# Personal
+.old
