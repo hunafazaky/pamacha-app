@@ -14,14 +14,28 @@ export const useAccountStore = defineStore("account", () => {
     { id: "abc", username: "hunafa", password: "123" },
     { id: "def", username: "zaky", password: "456" },
   ]);
+  const currentUser = ref<Account | null>(null);
 
-  const addAccount = (username: string, password: string) => {
-    if (!(username && password)) return;
+  const signUpAccount = (username: string, password: string) => {
+    if (!username || !password)
+      return { status: 400, message: "username or password cannot be empty." };
+    
+    const existingAccount = accounts.value.some((item) => item.username === username);
+    if (existingAccount) return { status: 400, message: "Username sudah terdaftar!" };
+    
     accounts.value.push({
       id: crypto.randomUUID(),
       username,
       password,
     });
+  };
+
+  const signInAccount = (username: string, password: string) => {
+    if (!(username && password)) return;
+    const account = accounts.value.find((item) => item.username === username);
+    if (account && account.password === password)
+      return { message: "Sign In Success." };
+    else return { message: "Username or Password mismatch." };
   };
 
   const updateAccount = (username: string, password: string, id: string) => {
@@ -33,9 +47,8 @@ export const useAccountStore = defineStore("account", () => {
     }
   };
 
-  return { accounts, addAccount, updateAccount };
+  return { accounts, signUpAccount, signInAccount, updateAccount };
 });
-
 
 // export interface Todo {
 //   id: number;

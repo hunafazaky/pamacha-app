@@ -1,13 +1,6 @@
 <template>
   <v-app dark>
     <LayoutNavbar />
-    <!-- <v-navigation-drawer>
-      <v-list-item title="Literature App" subtitle="Vuetify"></v-list-item>
-      <v-divider></v-divider>
-      <v-list-item link title="Home"></v-list-item>
-      <v-list-item link title="Library"></v-list-item>
-      <v-list-item link title="Write New Story"></v-list-item>
-    </v-navigation-drawer> -->
     <v-main class="mb-12">
       <v-container>
         <slot />
@@ -18,6 +11,7 @@
 
 <script setup lang="ts">
 // import LayoutNavbar from '@component/layout/Navab'
+
 </script>
 
 <!-- <script>

@@ -36,9 +36,9 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { useDisplay } from "vuetify";
 import { nav_list } from "@/utils/constants";
-const { mobile, mdAndUp } = useDisplay();
+import { useDisplay } from "vuetify";
+const { mobile } = useDisplay();
 
 const drawer = ref(true);
 const group = ref(null);
