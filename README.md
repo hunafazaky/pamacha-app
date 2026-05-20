@@ -1,68 +1,68 @@
-# app-reading
+# Nuxt Reading App
 
-## Build Setup
+Aplikasi web `Nuxt.js` untuk membaca dan menulis karya berbasis komunitas.
+Proyek ini menggunakan `Nuxt 2`, `Vuetify`, `Vuex`, dan integrasi `Firebase` untuk otentikasi, penyimpanan, dan pengelolaan data.
+
+## Fitur Utama
+
+- Halaman `Explore` untuk menemukan karya terbaru dan rekomendasi.
+- Halaman `Bookshelf` untuk melihat karya yang menjadi koleksi pengguna.
+- Halaman `Write` untuk membuat, menyimpan, dan mengedit karya menggunakan editor rich-text `Tiptap`.
+- Profil pengguna untuk melihat karya dan informasi penulis.
+- Halaman baca detail karya dengan rating, hashtag, dan interaksi pembaca.
+- Filter hashtag untuk memudahkan pencarian topik dan kategori karya.
+- Integrasi `Firebase` untuk autentikasi dan penyimpanan data.
+
+## Struktur Proyek
+
+- `pages/` - halaman aplikasi utama seperti `home`, `explore`, `bookshelf`, `write`, dan rute dinamis untuk `user` dan `work`.
+- `components/` - komponen UI umum seperti `TiptapEditor`, `Hashtags`, `WorkCard`, dan komponen dialog/loading.
+- `store/` - manajemen state aplikasi dengan Vuex untuk pengguna, karya, dan data hashtag.
+- `nuxt.config.js` - konfigurasi Nuxt, Firebase, Axios, dan Vuetify.
+
+## Teknologi
+
+- `nuxt` (Nuxt 2)
+- `vuetify`
+- `@nuxtjs/firebase`
+- `firebase`
+- `@nuxtjs/axios`
+- `@tiptap/vue-2`
+- `@tiptap/starter-kit`
+- `vuelidate`
+- `vuex`
+
+## Instalasi
+
+1. Pasang dependensi:
 
 ```bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
+pnpm install
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+2. Jalankan pengembangan lokal:
 
-## Special Directories
+```bash
+pnpm dev
+```
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+3. Buka aplikasi di browser:
 
-### `assets`
+```
+http://localhost:3000
+```
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+## Konfigurasi
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+- `ssr` dinonaktifkan (`ssr: false`) dan target build adalah `static`.
+- `firebase` dikonfigurasi di `nuxt.config.js` dengan `auth` dan `storage` diaktifkan.
+- `axios` menggunakan `baseURL` default `http://localhost:8080/api`.
 
-### `components`
+## Catatan
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+- Untuk deployment, pastikan konfigurasi Firebase dan endpoint API disesuaikan.
+- Proyek ini dapat berkembang menjadi platform baca-tulis dengan fitur komunitas tambahan seperti komentar, like, dan rekomendasi.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+## Lisensi
 
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
-### `pages`
-
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
-
-### `plugins`
-
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
-
-### `static`
-
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+MIT
