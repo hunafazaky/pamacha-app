@@ -8,7 +8,7 @@
         <a
           class="text-decoration-none text--secondary"
           href="https://pngtree.com/so/people"
-          >people png from pngtree.com</a
+          >source: pngtree.com</a
         >
       </p>
     </v-main>
@@ -24,7 +24,7 @@ export default {
 <style scoped>
 @media only screen and (max-width: 960px) {
   .login-page {
-    background-image: url(/login-image.png);
+    background-image: url(/login-image.webp);
     background-size: cover;
     background-position: center;
   }
