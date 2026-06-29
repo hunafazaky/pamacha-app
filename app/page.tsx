@@ -7,15 +7,17 @@ export default function Home() {
         src="/dragon-book.avif"
         width={1000}
         height={760}
-        className="hidden md:block"
-        alt="Screenshots of the dashboard project showing desktop version"
+        className="hidden md:block w-200"
+        alt="Dragon love reading"
+        loading="eager"
       />
       <Image
         src="/dragon-book.avif"
         width={560}
         height={620}
-        className="block md:hidden"
-        alt="Screenshots of the dashboard project showing desktop version"
+        className="block md:hidden w-200"
+        alt="Dragon love reading"
+        loading="eager"
       />
     </div>
   );
