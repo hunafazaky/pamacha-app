@@ -1,4 +1,3 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,7 +17,7 @@ export default function Authentication() {
       <h1 className="text-2xl font-bold">PaMacha</h1>
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Sign in to your account</CardTitle>
+          <CardTitle>Sign up to create new account</CardTitle>
         </CardHeader>
         <CardContent>
           <form>
@@ -28,7 +27,16 @@ export default function Authentication() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="user@example.com"
+                  placeholder="yourname@example.com"
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="email">Pen Name</Label>
+                <Input
+                  id="pen_name"
+                  type="pen_name"
+                  placeholder="Your Pen Name"
                   required
                 />
               </div>
@@ -37,20 +45,24 @@ export default function Authentication() {
                   <Label htmlFor="password">Password</Label>
                 </div>
                 <Input id="password" type="password" required />
+                <div className="flex items-center">
+                  <Label htmlFor="password">Retype Password</Label>
+                </div>
+                <Input id="password" type="password" required />
               </div>
             </div>
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-2">
           <Button type="submit" className="w-full">
-            Sign In
+            Sign Up
           </Button>
           <CardAction>
             Or
-            <Link href="/signup" className="font-bold mx-1">
-              Sign Up
+            <Link href="/signin" className="font-bold mx-1">
+              Sign In
             </Link>
-            to create new account
+            to your account
           </CardAction>
         </CardFooter>
       </Card>
